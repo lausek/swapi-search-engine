@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <div th:fragment="searchbar">
+        <form th:action="@{/search}" method="get">
+            <input type="text" name="query" placeholder="What are you looking for?" th:value="${param.query}">
+            <select name="area" autocomplete="off">
+                <option th:each="state : ${T(eu.lausek.searchengine.model.SearchArea).values()}"
+                        th:value="${state}"
+                        th:text="${state}"
+                        th:selected="${state.name().equals(#request.getParameter('area'))}"
+                >
+                </option>
+            </select>
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
+</html>

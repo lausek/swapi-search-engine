@@ -7,4 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Species {
     @JsonProperty
     public String name;
+    @JsonProperty
+    public String url;
 }

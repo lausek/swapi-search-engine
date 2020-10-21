@@ -2,6 +2,16 @@ body {
     margin: 0;
     color: yellow;
     background-color: black;
+    font-family: Helvetica, Arial;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 40px;
 }
 
 #search-result {
@@ -11,4 +21,12 @@ body {
 .search-entry {
     padding: 5px;
     text-align: left;
+    border: 1px yellow solid;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.search-entry-category {
+    color: gray;
+    font-weight: italic;
 }

@@ -7,4 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Starship {
     @JsonProperty
     public String name;
+    @JsonProperty
+    public String url;
 }

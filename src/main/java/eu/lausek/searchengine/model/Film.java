@@ -7,4 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Film {
     @JsonProperty("title")
     public String name;
+    @JsonProperty
+    public String url;
 }

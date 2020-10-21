@@ -6,23 +6,18 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
+
 <center>
     <a href="/"><h1>Star Wars Search Engine</h1></a>
-    <form th:action="@{/search}" method="get">
-        <input type="text" name="query" placeholder="What are you looking for?">
-        <select name="area">
-            <option th:each="state : ${T(eu.lausek.searchengine.model.SearchArea).values()}"
-                    th:value="${state}"
-                    th:text="${state}">
-            </option>
-        </select>
-        <input type="submit" value="Search">
-    </form>
+    <div th:insert="~{searchbar :: searchbar}"></div>
+
     <div id="search-result">
         <div class="search-entry" th:each="entry : ${entries}">
-            <span th:text="${entry.name}"></span>
+            <span class="search-entry-category">[ <span th:text="${entry.class.simpleName}"></span> ]</span>
+            <a th:href="${entry.url}" target="_blank"><span th:text="${entry.name}"></span></a>
         </div>
     </div>
 </center>
+
 </body>
 </html>

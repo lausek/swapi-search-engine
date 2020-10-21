@@ -23,8 +23,7 @@ public class MainController {
     public final String STARWARS_API_BASE = "https://swapi.dev/api/";
 
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("searchRequest", new SearchRequest());
+    public String index() {
         return "index";
     }
 
@@ -78,7 +77,6 @@ public class MainController {
 
         Map<String, Object> model = new HashMap<>();
         model.put("entries", swapiResult.results);
-        model.put("searchRequest", new SearchRequest());
 
         return new ModelAndView("index", model);
     }
