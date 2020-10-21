@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Star Wars Search Engine</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<center>
+    <h1>Star Wars Search Engine</h1>
+    <form th:object="${searchRequest}" th:action="@{/search}" method="post">
+        <input type="text" th:field="*{input}" placeholder="What are you looking for?">
+        <select th:field="*{searchArea}">
+            <option th:each="state : ${T(eu.lausek.searchengine.model.SearchArea).values()}"
+                    th:value="${state}"
+                    th:text="${state}">
+            </option>
+        </select>
+        <input type="submit" value="Search">
+    </form>
+    <div id="search-result">
+        <div class="search-entry" th:each="entry : ${entries}">
+            <span th:text="${entry.name}"></span>
+        </div>
+    </div>
+</center>
+</body>
+</html>

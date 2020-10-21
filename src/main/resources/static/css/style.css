@@ -1,0 +1,14 @@
+body {
+    margin: 0;
+    color: yellow;
+    background-color: black;
+}
+
+#search-result {
+    padding: 10px;
+}
+
+.search-entry {
+    padding: 5px;
+    text-align: left;
+}
