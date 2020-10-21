@@ -1,10 +1,10 @@
-package eu.lausek.searchengine.model;
+package eu.lausek.searchengine.model.swapi;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Species {
+public class Vehicle extends GenericAttributes {
     @JsonProperty
     public String name;
     @JsonProperty

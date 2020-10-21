@@ -12,9 +12,22 @@
     <div th:insert="~{searchbar :: searchbar}"></div>
 
     <div id="search-result">
+        <div th:fragment="list_properties (name, list)">
+            <div th:if="${list != null && !list.isEmpty()}">
+                <h4 th:text="${name}"></h4>
+                <ul>
+                    <li th:each="item : ${list}" th:text="${item}"></li>
+                </ul>
+            </div>
+        </div>
+
         <div class="search-entry" th:each="entry : ${entries}">
             <span class="search-entry-category">[ <span th:text="${entry.class.simpleName}"></span> ]</span>
-            <a th:href="${entry.url}" target="_blank"><span th:text="${entry.name}"></span></a>
+            <a th:href="${entry.url}" target="_blank"><h3 th:text="${entry.name}"></h3></a>
+
+            <div th:replace="::list_properties ('Species', ${entry.species})"></div>
+            <div th:replace="::list_properties ('Starships', ${entry.starships})"></div>
+            <div th:replace="::list_properties ('Vehicles', ${entry.vehicles})"></div>
         </div>
     </div>
 </center>
