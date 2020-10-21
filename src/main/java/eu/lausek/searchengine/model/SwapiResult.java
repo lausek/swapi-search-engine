@@ -9,6 +9,10 @@ import java.util.List;
 public class SwapiResult<T> {
     @JsonProperty
     public int count;
+
+    // according to the swapi docs, the elements of `results` differ in
+    // their type. we can achieve more flexibility here by using type arguments
+    // when deserializing.
     @JsonProperty
     public List<T> results;
 }

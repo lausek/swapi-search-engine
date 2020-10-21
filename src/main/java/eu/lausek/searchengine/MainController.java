@@ -32,16 +32,20 @@ public class MainController {
             @RequestParam("query") String query,
             @RequestParam("area") SearchArea searchArea
     ) throws Exception {
+        // build the api uri to call.
+        // - `searchArea` is a path component like `/api/people/...`
+        // - `search` is a parameter containing the keywords to take into account like `?search=luke`
         UriBuilder builder = new DefaultUriBuilderFactory(STARWARS_API_BASE).builder();
         builder.path(searchArea.toString().toLowerCase() + "/");
         builder.queryParam("search", query);
         URI uri = builder.build();
 
+        // fetch the generated uri and check operation status (statusCode = 200)
         System.out.println(uri);
         HttpRequest httpRequest = HttpRequest.newBuilder().uri(uri).build();
         HttpClient client = HttpClient.newHttpClient();
-
         HttpResponse<String> response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
         System.out.println(response.statusCode());
         if(response.statusCode() != 200) {
             throw new Exception("invalid request");
@@ -50,6 +54,7 @@ public class MainController {
         System.out.println(response.body());
         ObjectMapper mapper = new ObjectMapper();
 
+        // which class is expected to be in the `results` attribute?
         Class inner = null;
         switch(searchArea) {
             case FILMS:
@@ -72,12 +77,13 @@ public class MainController {
                 break;
         }
         JavaType ty = mapper.getTypeFactory().constructParametricType(SwapiResult.class, inner);
+        // use generic deserialization
         SwapiResult<Person> swapiResult = mapper.readValue(response.body(), ty);
         System.out.println(swapiResult.results);
 
+        // pass retrieved data back to search engine overview
         Map<String, Object> model = new HashMap<>();
         model.put("entries", swapiResult.results);
-
         return new ModelAndView("index", model);
     }
 }
