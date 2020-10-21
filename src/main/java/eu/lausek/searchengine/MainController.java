@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.lausek.searchengine.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriBuilder;
@@ -22,19 +22,20 @@ import java.util.Map;
 public class MainController {
     public final String STARWARS_API_BASE = "https://swapi.dev/api/";
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("searchRequest", new SearchRequest());
         return "index";
     }
 
-    @PostMapping("/search")
-    public ModelAndView search(SearchRequest searchRequest) throws Exception {
-        String searchArea = searchRequest.getSearchArea().toString().toLowerCase();
-
+    @GetMapping("/search")
+    public ModelAndView search(
+            @RequestParam("query") String query,
+            @RequestParam("area") SearchArea searchArea
+    ) throws Exception {
         UriBuilder builder = new DefaultUriBuilderFactory(STARWARS_API_BASE).builder();
-        builder.path(searchArea + "/");
-        builder.queryParam("search", searchRequest.getInput());
+        builder.path(searchArea.toString().toLowerCase() + "/");
+        builder.queryParam("search", query);
         URI uri = builder.build();
 
         System.out.println(uri);
@@ -51,7 +52,7 @@ public class MainController {
         ObjectMapper mapper = new ObjectMapper();
 
         Class inner = null;
-        switch(searchRequest.getSearchArea()) {
+        switch(searchArea) {
             case FILMS:
                 inner = Film.class;
                 break;

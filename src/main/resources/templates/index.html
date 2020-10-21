@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Star Wars Search Engine</title>
-
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <center>
-    <h1>Star Wars Search Engine</h1>
-    <form th:object="${searchRequest}" th:action="@{/search}" method="post">
-        <input type="text" th:field="*{input}" placeholder="What are you looking for?">
-        <select th:field="*{searchArea}">
+    <a href="/"><h1>Star Wars Search Engine</h1></a>
+    <form th:action="@{/search}" method="get">
+        <input type="text" name="query" placeholder="What are you looking for?">
+        <select name="area">
             <option th:each="state : ${T(eu.lausek.searchengine.model.SearchArea).values()}"
                     th:value="${state}"
                     th:text="${state}">
